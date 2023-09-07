@@ -19,36 +19,38 @@ class MoviesTableSeeder extends Seeder
         //     'api_key' => 'your-api-key',
         // ])->json();
 
-        $movies = Http::timeout(20000)
+        $movies = Http::timeout(100000)
             ->withToken(config('services.tmdb.token'))
             ->get('https://api.themoviedb.org/3/movie/popular')
             ->json()['results'];
 
-        // foreach ($movies as $movie) {
-        //     DB::table('movies')->insert([
-        //         'title' => $movie['title'],
-        //         'overview' => $movie['overview'],
-        //         'poster_path' => $movie['poster_path'],
-        //         'release_date' => $movie['release_date'],
-        //         'vote_average' => $movie['vote_average'],
-        //         'created_at' => now(),
-        //         'updated_at' => now(),
-        //     ]);
-        // }
+        
 
-        $movies = collect($movies)->map(function ($movie) {
-            return [
-                'id' => $movie['id'],
-                'title' => $movie['title'],
-                'overview' => $movie['overview'],
-                'poster_path' => $movie['poster_path'],
-                'release_date' => $movie['release_date'],
-                'created_at' => now(),
-                'updated_at' => now(),
-            ];
-        })->values();
-
-        DB::table('movies')->truncate();
-        DB::table('movies')->insert($movies->toArray());
+        for ($i = 1; $i <= 50; $i++) {
+            foreach ($movies as $movie) {
+                DB::table('movies')->insertOrIgnore([
+                    'title' => $movie['title'],
+                    'overview' => $movie['overview'],
+                    'poster_path' => $movie['poster_path'],
+                    'release_date' => $movie['release_date'],
+                    'vote_average' => $movie['vote_average'],
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'adult' => $movie['adult'],
+                    'backdrop_path' => $movie['backdrop_path'],
+                    'genre_ids' => json_encode($movie['genre_ids']),
+                    'id' => $movie['id'],
+                    'original_language' => $movie['original_language'],
+                    'original_title' => $movie['original_title'],
+                    'popularity' => $movie['popularity'],
+                    'video' => $movie['video'],
+                    'vote_count' => $movie['vote_count'],
+                ]);
+            }
+    
+            if ($i === 50) {
+                break; // Sortie de la boucle après la dixième itération
+            }
+        }
     }
 }

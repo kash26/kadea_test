@@ -6,7 +6,8 @@
         <div class="popular-movies">
             <div class="uppercase tracking-wider text-orange-500 text-lg font-semibold">Latest</div>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-                @foreach ($popularMovies['results'] as $movie)
+                {{-- @foreach ($popularMovies['results'] as $movie) --}}
+                @foreach ($popularMovies as $movie)
                     {{-- <x-movie-card :movie="$movie" :genres="$genres" /> --}}
                     <div class="mt-2 mb-6">
                         <a href="{{ route('movies.show', $movie['id']) }}">
@@ -38,7 +39,7 @@
                                         <span class="text-red-500">L'élément n'existe pas</span>
                                     @endif
                                 </div>
-                                <div class="text-gray-4">
+                                {{-- <div class="text-gray-4">
                                     @if (isset($movie['genre_ids']))
                                         @foreach ($movie['genre_ids'] as $genre)
                                             {{ $genres->get($genre) }} @if (!$loop->last)
@@ -48,7 +49,7 @@
                                     @else
                                         <span class="text-red-500">L'élément n'existe pas</span>
                                     @endif
-                                </div>
+                                </div> --}}
                             </a>
                         </div>
                     </div>
@@ -57,14 +58,14 @@
 
             </div>
             <div class="p-4 mt-4 mb-4">
-                <div class="pagination">
+                {{-- <div class="pagination">
                     @for ($i = 1; $i <= min($num_pages, 10); $i++)
                         <a href="{{ route('movies.index', ['page' => $i]) }}"
                             class="pagination-link border p-2 m-2 rounded-lg {{ $i == $page ? 'bg-white text-black' : '' }}">
                             {{ $i }}
                         </a>
                     @endfor
-                </div>
+                </div> --}}
             </div>
         </div>
 
