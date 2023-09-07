@@ -48,7 +48,18 @@ php artisan db:seed
 
 ## Utilisation
 
-Pour démarrer le serveur de développement, exécutez la commande suivante :
+### Congiguration du fichier .env  
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=kadea_test
+DB_USERNAME=root
+DB_PASSWORD=
+
+TMDB_TOKEN="eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyMjJkNjNjZGRjMDY2ZDk5ZWQzZTgwNmQzMjY3MThjYSIsInN1YiI6IjYyNGVhNTRhYjc2Y2JiMDA2ODIzODc4YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zuuBq1c63XpADl8SQ_c62hezeus7VibE1w5Da5UdYyo"
+
+### Pour démarrer le serveur de développement, exécutez la commande suivante :
 
 php artisan serve
 
